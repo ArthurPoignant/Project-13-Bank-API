@@ -10,6 +10,7 @@ import Navbar from './component/Navbar';
 import Footer from './component/Footer';
 import logo from '../src/img/argentBankLogo.png';
 import SignIn from './pages/SignIn';
+import User from './pages/User';
 
 const router = createBrowserRouter([
   {
@@ -17,12 +18,16 @@ const router = createBrowserRouter([
     element: <Root />,
     children: [
       {
-        path: "/signin",
+        path: "/",
+        element: <Home />,
+      },
+      {
+        path: "/login",
         element: <SignIn />,
       },
       {
-        path: "/home",
-        element: <Home />,
+        path: "/profile",
+        element: <User />,
       },
       {
         path: "*",
