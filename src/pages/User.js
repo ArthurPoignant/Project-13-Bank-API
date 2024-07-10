@@ -15,18 +15,23 @@ export default function User() {
   const [isEditing, setIsEditing] = useState(false);
   const [newFirstName, setNewFirstName] = useState('');
   const [newLastName, setNewLastName] = useState('');
-/*   console.log(user.body.token) */
+  /* console.log(user.body) */
 
   useEffect(() => {
     if (!user) {
       navigate('/login');
-    } else {
-      setFirstName(user.firstName);
-      setLastName(user.lastName);
-      setNewFirstName(user.firstName);
-      setNewLastName(user.lastName);
     }
   }, [user, navigate]);
+
+  useEffect(() => {
+    if (user && user.body.firstName) {
+      setFirstName(user.body.firstName);
+      setLastName(user.body.lastName);
+      setNewFirstName(user.body.firstName);
+      setNewLastName(user.body.lastName);
+    }
+  }, [user]);
+
 
   useEffect(() => {
     if (token) {
@@ -55,20 +60,24 @@ export default function User() {
       </div>
       {isEditing && (
         <div className="edit-name-form">
-          <input 
-            type="text" 
-            value={newFirstName} 
-            onChange={(e) => setNewFirstName(e.target.value)} 
-            placeholder="First Name" 
-          />
-          <input 
-            type="text" 
-            value={newLastName} 
-            onChange={(e) => setNewLastName(e.target.value)} 
-            placeholder="Last Name" 
-          />
-          <button onClick={handleSaveName}>Save</button>
-          <button onClick={() => setIsEditing(false)}>Cancel</button>
+          <div>
+            <input
+              type="text"
+              value={newFirstName}
+              onChange={(e) => setNewFirstName(e.target.value)}
+              placeholder="First Name"
+            />
+            <input
+              type="text"
+              value={newLastName}
+              onChange={(e) => setNewLastName(e.target.value)}
+              placeholder="Last Name"
+            />
+          </div>
+          <div>
+            <button onClick={handleSaveName}>Save</button>
+            <button onClick={() => setIsEditing(false)}>Cancel</button>
+          </div>
         </div>
       )}
       <h2 className="sr-only">Accounts</h2>

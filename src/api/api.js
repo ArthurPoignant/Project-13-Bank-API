@@ -1,6 +1,5 @@
 import axios from 'axios';
 
-// Base configuration
 const api = axios.create({
   baseURL: 'http://localhost:3001/api/v1',
   headers: {
@@ -8,9 +7,6 @@ const api = axios.create({
   },
 });
 
-// API Endpoints
-
-// User login
 export const loginUser = async (email, password) => {
   try {
     const response = await api.post('/user/login', { email, password });
@@ -20,7 +16,6 @@ export const loginUser = async (email, password) => {
   }
 };
 
-// User signup
 export const signup = async (email, password, firstName, lastName) => {
   try {
     const response = await api.post('/user/signup', { email, password, firstName, lastName });
@@ -30,7 +25,6 @@ export const signup = async (email, password, firstName, lastName) => {
   }
 };
 
-// Fetch user profile
 export const getUserInfo = async (token) => {
   try {
     const response = await api.post('/user/profile', {}, {
@@ -42,7 +36,6 @@ export const getUserInfo = async (token) => {
   }
 };
 
-// Update user profile
 export const updateUserNameAPI = async (token, profileData) => {
   try {
     const response = await api.put('/user/profile', profileData, {

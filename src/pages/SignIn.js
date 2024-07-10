@@ -40,7 +40,7 @@ export default function SignIn() {
           onSuccess={handleSuccess}
         />
         {loading && <p>Loading...</p>}
-        {error && <p className="error">{error}</p>}
+        {error && <p className="error">Username/password incorrect</p>}
       </section>
     </main>
   );

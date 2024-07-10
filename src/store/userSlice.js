@@ -4,7 +4,8 @@ import { loginUser, signup, getUserInfo, updateUserNameAPI } from '../api/api';
 export const login = createAsyncThunk('user/login', async ({ email, password }, { rejectWithValue }) => {
   try {
     const data = await loginUser(email, password);
-    return data;
+    console.log(data.body.token)
+    return { user: data.user, token: data.body.token };
   } catch (error) {
     return rejectWithValue(error);
   }
@@ -40,13 +41,15 @@ export const updateUserName = createAsyncThunk('user/updateName', async ({ token
 const userSlice = createSlice({
   name: 'user',
   initialState: {
-    user: null,
+    user: '',
+    token: null,
     loading: false,
     error: null,
   },
   reducers: {
     logout(state) {
       state.user = null;
+      state.token = null;
       state.loading = false;
       state.error = null;
     },
@@ -58,7 +61,8 @@ const userSlice = createSlice({
         state.error = null;
       })
       .addCase(login.fulfilled, (state, action) => {
-        state.user = action.payload;
+        state.user = action.payload.user;
+        state.token = action.payload.token;
         state.loading = false;
       })
       .addCase(login.rejected, (state, action) => {
