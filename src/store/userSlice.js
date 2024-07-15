@@ -4,7 +4,7 @@ import { loginUser, signup, getUserInfo, updateUserNameAPI } from '../api/api';
 export const login = createAsyncThunk('user/login', async ({ email, password }, { rejectWithValue }) => {
   try {
     const data = await loginUser(email, password);
-    console.log(data.body.token)
+    localStorage.setItem('token', data.body.token);
     return { user: data.user, token: data.body.token };
   } catch (error) {
     return rejectWithValue(error);
@@ -23,6 +23,7 @@ export const signupUser = createAsyncThunk('user/signup', async ({ email, passwo
 export const fetchUserProfile = createAsyncThunk('user/fetchProfile', async (token, { rejectWithValue }) => {
   try {
     const data = await getUserInfo(token);
+    sessionStorage.setItem('token', token);
     return data;
   } catch (error) {
     return rejectWithValue(error);
@@ -32,6 +33,7 @@ export const fetchUserProfile = createAsyncThunk('user/fetchProfile', async (tok
 export const updateUserName = createAsyncThunk('user/updateName', async ({ token, profileData }, { rejectWithValue }) => {
   try {
     const data = await updateUserNameAPI(token, profileData);
+    console.log(data)
     return data;
   } catch (error) {
     return rejectWithValue(error);
@@ -42,7 +44,7 @@ const userSlice = createSlice({
   name: 'user',
   initialState: {
     user: '',
-    token: null,
+    token: localStorage.getItem('token') || null,
     loading: false,
     error: null,
   },
