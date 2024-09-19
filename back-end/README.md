@@ -41,6 +41,25 @@ npm run populate-db
 
 Your server should now be running at http://locahost:3001 and you will now have two users in your MongoDB database!
 
+# On MacOS 
+
+```bash
+# Install dependencies
+npm install
+
+# Use the right npm version
+Nvm use 12
+
+# Start the mongoDB service
+brew services start mongodb-community@7.0
+
+# Start local dev server
+npm run dev:server
+
+# Populate database with two users
+npm run populate-db
+```
+
 ## Populated Database Data
 
 Once you run the `populate-db` script, you should have two users in your database:

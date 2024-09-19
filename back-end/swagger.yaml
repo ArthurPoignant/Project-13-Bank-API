@@ -124,7 +124,7 @@ paths:
         - in: query
           name: accountId
           type: string
-          description: Filter transactions by account ID (optional)
+          description: Filter transactions by account ID
       produces:
         - application/json
       responses:
